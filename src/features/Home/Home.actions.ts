@@ -1,29 +1,46 @@
 import { ActionClass } from "../../store/state";
+import { character } from "../Home/components/Home";
 
 type DataType = {
   characters: [];
 };
 
 export enum ActionsMethods {
-  LOAD_CHARACTERS = "LOAD_CHARACTERS",
-  ADD_CHARACTERS = "ADD_CHARACTERS",
-  FAVORITES = "FAVORITES",
-  UNLIKED = "UNLIKED",
-  ERROR = "ERROR",
+  TRIGGER_FAVORITES_ADD = "[HOME] trigger_favorites_add",
+  FAVORITES = "[HOME] favorites",
+  FAVORITES_REMOVE = "[HOME] favorites_remove",
+  TRIGGER_FAVORITES_REMOVE = "[HOME] trigger_favorites_remove",
+  ERROR = "[HOME] error",
 }
 
-export class LoadCharacters extends ActionClass {
-  readonly type = ActionsMethods.LOAD_CHARACTERS;
+export class AddFavoritesTriger extends ActionClass {
+  readonly type = ActionsMethods.TRIGGER_FAVORITES_ADD;
 
-  constructor(public payload: DataType) {
+  constructor(public payload: character) {
     super();
   }
 }
 
-export class PutCharacters extends ActionClass {
-  readonly type = ActionsMethods.ADD_CHARACTERS;
+export class FavoritesCharacters extends ActionClass {
+  readonly type = ActionsMethods.FAVORITES;
 
-  constructor(public payload: []) {
+  constructor(public payload: character) {
+    super();
+  }
+}
+
+export class RemoveFavoritesTriger extends ActionClass {
+  readonly type = ActionsMethods.TRIGGER_FAVORITES_REMOVE;
+
+  constructor(public payload: character) {
+    super();
+  }
+}
+
+export class FavoritesCharactersRemove extends ActionClass {
+  readonly type = ActionsMethods.FAVORITES_REMOVE;
+
+  constructor(public payload: character) {
     super();
   }
 }
@@ -36,25 +53,8 @@ export class ErrorData extends ActionClass {
   }
 }
 
-export class FavoritesCharacters extends ActionClass {
-  readonly type = ActionsMethods.FAVORITES;
-
-  constructor(public payload: []) {
-    super();
-  }
-}
-
-export class UnlikedCharacters extends ActionClass {
-  readonly type = ActionsMethods.UNLIKED;
-
-  constructor(public payload: []) {
-    super();
-  }
-}
-
 export type ActionsTypes =
-  | LoadCharacters
-  | PutCharacters
   | ErrorData
   | FavoritesCharacters
-  | UnlikedCharacters;
+  | FavoritesCharactersRemove
+  | RemoveFavoritesTriger;

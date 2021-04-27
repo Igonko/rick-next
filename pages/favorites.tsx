@@ -1,29 +1,13 @@
-import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import Search from "../../Search/Search";
-import Pagination from "../../Pagination/Pagination";
 import { useDispatch, useSelector } from "react-redux";
-import * as homeActs from "../Home.actions";
-import { getFavorites } from "../Home.selectors";
+import { getFavorites } from "../src/features/Home/Home.selectors";
+import * as homeActs from "../src/features/Home/Home.actions";
+import { character } from "../src/features/Home/components/Home";
 
-import styles from "./Home.module.scss";
+import styles from "../src/features/Home/components/Home.module.scss";
 
-export type character = {
-  id: number;
-  name: string;
-  image: string;
-  gender: string;
-  species: string;
-  location: {
-    name: string;
-  };
-  origin: {
-    name: string;
-  };
-};
-
-const Home = ({ data, currentPage }) => {
+const Favorites = () => {
   const dispatch = useDispatch();
   const favoritesCharacters = useSelector(getFavorites);
 
@@ -38,20 +22,17 @@ const Home = ({ data, currentPage }) => {
   };
 
   return (
-    <>
-      <Head>
-        <title>Rick and Morty Nexp App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <Search />
-
-      <Link href="/favorites">
-        <a>Favorites</a>
-      </Link>
+    <div>
+      <h1>Favorites</h1>
+      <p>
+        Go back to the{" "}
+        <Link href="/">
+          <a>Homepage</a>
+        </Link>
+      </p>
 
       <div className={styles.container}>
-        {data.characters.map((character: character) => {
+        {favoritesCharacters.map((character: character) => {
           return (
             <div className={styles.item_wrapper} key={character.id}>
               <div className={styles.button_wrapper}>
@@ -74,10 +55,7 @@ const Home = ({ data, currentPage }) => {
           );
         })}
       </div>
-
-      <Pagination pages={data.pages} currentPage={currentPage} />
-    </>
+    </div>
   );
 };
-
-export default Home;
+export default Favorites;

@@ -1,33 +1,33 @@
 import { useRouter } from "next/router";
 import styles from "./Pagination.module.scss";
+import Link from "next/link";
 
 type Paginationtype = {
-  pages: number,
-  currentPage: number
-}
+  pages: number;
+  currentPage: number;
+};
 
 const Pagination = ({ pages, currentPage }: Paginationtype) => {
-  const router = useRouter();
-
-  const goToPage = (page: number): void => {
-    router.push({
-      pathname: `/page/${page}`,
-    });
-  };
+  currentPage = typeof currentPage === "number" ? currentPage : 1;
 
   return (
     <div className={styles.button_wrapper}>
-      <button
-        onClick={() => goToPage(currentPage - 1)}
-        disabled={currentPage <= 1}>
-        Prev
-      </button>
-      <button
-        onClick={() => goToPage(currentPage + 1)}
-        disabled={currentPage >= pages}>
-        Next
-      </button>
-      <button onClick={() => goToPage(pages)}>Last page</button>
+      <Link
+        href={
+          "/page/" + (currentPage - 1 === 0 ? 1 : currentPage - 1).toString()
+        }>
+        <a>Prev</a>
+      </Link>
+      <Link
+        href={
+          "/page/" +
+          (currentPage + 1 > pages ? currentPage : currentPage + 1).toString()
+        }>
+        <a>Next</a>
+      </Link>
+      <Link href={"/page/" + pages}>
+        <a>Last page</a>
+      </Link>
     </div>
   );
 };

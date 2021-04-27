@@ -13,17 +13,17 @@ export const reducer = (
   action: ActionsTypes
 ): MainType => {
   switch (action.type) {
-    case ActionsMethods.ADD_CHARACTERS: {
-      return { ...state, data: [...action.payload] };
-    }
     case ActionsMethods.ERROR: {
       return { ...state, error: action.payload };
     }
     case ActionsMethods.FAVORITES: {
-      return { ...state, favorites: [...action.payload] };
+      return { ...state, favorites: [...state.favorites, action.payload] };
     }
-    case ActionsMethods.UNLIKED: {
-      return { ...state, unliked: [...action.payload] };
+    case ActionsMethods.FAVORITES_REMOVE: {
+      const newFavorites = state.favorites.filter((item) => {
+        return item.id !== action.payload.id;
+      });
+      return { ...state, favorites: [...newFavorites] };
     }
     default:
       return state;
