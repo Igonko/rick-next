@@ -1,0 +1,13 @@
+.search_wrapper {
+  margin: 30px auto;
+  width: max-content;
+  & input {
+    width: 200px;
+    margin-right: 20px;
+  }
+  & button {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0 3px;
+  }
+}
